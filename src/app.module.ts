@@ -4,6 +4,7 @@ import { PrismaModule } from './shared/infra/prisma/prisma.module';
 import { ProducerModule } from './modules/producers/producer.module';
 import { FarmModule } from './modules/farms/farm.module';
 import { HarvestModule } from './modules/harvests/harvest.module';
+import { PlantationModule } from './modules/plantations/plantation.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { HarvestModule } from './modules/harvests/harvest.module';
     ProducerModule,
     FarmModule,
     HarvestModule,
+    PlantationModule,
   ],
 })
 export class AppModule {}
