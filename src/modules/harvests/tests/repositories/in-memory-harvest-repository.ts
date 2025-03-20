@@ -73,28 +73,26 @@ export class InMemoryHarvestRepository implements IHarvestsRepository {
   async list(
     data: IListRequestRepository<IHarvest>,
   ): Promise<IListResponseRepository<IHarvest>> {
-    const { skip = 0, take = 10, orderBy } = data;
-    const where = this.mapper.resolveWhereToList(data);
+    const skip = data.skip || 0;
+    const take = data.take || 10;
 
-    const filteredHarvests = this.harvests.filter((harvest) =>
-      Object.entries(where).every(([key, value]) => harvest[key] === value),
-    );
+    const where = this.mapper.resolveWhereToList(data) || {};
 
-    const sortedHarvests = orderBy
-      ? filteredHarvests.sort((a, b) => {
-          const field = Object.keys(orderBy)[0];
-          const order = orderBy[field] === 'asc' ? 1 : -1;
-          return a[field] > b[field] ? order : -order;
-        })
-      : filteredHarvests;
+    const yearFilter = where.year as { startsWith?: string } | undefined;
 
-    const paginatedHarvests = sortedHarvests.slice(skip, skip + take);
+    const startsWithValue = yearFilter?.startsWith?.replace(/%/g, '') || '';
+
+    const filteredHarvests = this.harvests.filter((harvest) => {
+      const harvestYear = String(harvest.year);
+
+      return harvestYear.startsWith(startsWithValue);
+    });
 
     return {
       skip,
       take,
       count: filteredHarvests.length,
-      data: paginatedHarvests,
+      data: filteredHarvests.slice(skip, skip + take),
     };
   }
 
