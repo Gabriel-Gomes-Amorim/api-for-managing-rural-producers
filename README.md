@@ -40,6 +40,9 @@ A API permite gerenciar produtores rurais e suas propriedades, garantindo a inte
 ## 🛠️ Como rodar o projeto
 
 ```bash
+# Copie o arquivo .env.example para .env
+cp .env.example .env
+
 # Suba o banco de dados no Docker
 docker compose up -d
 
