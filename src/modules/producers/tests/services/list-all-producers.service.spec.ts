@@ -42,6 +42,8 @@ describe('ListAllProducersService', (): void => {
 
     const result: IListResponseRepository<IProducer> = await sut.execute({
       name: 'John',
+      skip: 0,
+      take: 10,
     });
 
     expect(result.data).toHaveLength(1);

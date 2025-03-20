@@ -73,28 +73,35 @@ export class InMemoryPlantationRepository implements IPlantationsRepository {
   async list(
     data: IListRequestRepository<IPlantation>,
   ): Promise<IListResponseRepository<IPlantation>> {
-    const { skip = 0, take = 10, orderBy } = data;
-    const where = this.mapper.resolveWhereToList(data);
+    const skip = data.skip || 0;
+    const take = data.take || 10;
 
-    const filteredPlantations = this.plantations.filter((plantation) =>
-      Object.entries(where).every(([key, value]) => plantation[key] === value),
-    );
+    const where = this.mapper.resolveWhereToList(data) || {};
 
-    const sortedPlantations = orderBy
-      ? filteredPlantations.sort((a, b) => {
-          const field = Object.keys(orderBy)[0];
-          const order = orderBy[field] === 'asc' ? 1 : -1;
-          return a[field] > b[field] ? order : -order;
-        })
-      : filteredPlantations;
+    const name = where.name as
+      | { startsWith?: string; mode?: string }
+      | undefined;
 
-    const paginatedPlantations = sortedPlantations.slice(skip, skip + take);
+    const startsWithValue = name?.startsWith?.replace(/%/g, '') || '';
+    const isInsensitive = name?.mode === 'insensitive';
+
+    const filteredPlantations = this.plantations.filter((plantation) => {
+      let plantationName = plantation.name;
+
+      if (isInsensitive) {
+        plantationName = plantationName.toLowerCase();
+      }
+
+      return plantationName.startsWith(
+        isInsensitive ? startsWithValue.toLowerCase() : startsWithValue,
+      );
+    });
 
     return {
       skip,
       take,
       count: filteredPlantations.length,
-      data: paginatedPlantations,
+      data: filteredPlantations.slice(skip, skip + take),
     };
   }
 

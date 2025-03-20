@@ -61,6 +61,47 @@ describe('ListAllPlantationsService', (): void => {
     expect(result.data).toEqual([plantation1, plantation2]);
   });
 
+  it('should filter plantations by name', async (): Promise<void> => {
+    const producer: IProducer = await inMemoryProducerRepository.create({
+      name: 'User Teste',
+      cpfCnpj: '12345678900',
+    });
+
+    const farm: IFarm = await inMemoryFarmRepository.create({
+      name: 'Farm A',
+      city: 'City A',
+      state: 'State A',
+      totalArea: 1000,
+      farmableArea: 800,
+      vegetationArea: 200,
+      producerId: producer.id,
+    });
+
+    const harvest: IHarvest = await inMemoryHarvestRepository.create({
+      year: 2025,
+      farmId: farm.id,
+    });
+
+    await inMemoryPlantationRepository.create({
+      name: `Coffee`,
+      harvestId: harvest.id,
+    });
+
+    await inMemoryPlantationRepository.create({
+      name: `Soy`,
+      harvestId: harvest.id,
+    });
+
+    const result: IListResponseRepository<IPlantation> = await sut.execute({
+      name: 'Coffee',
+      skip: 0,
+      take: 10,
+    });
+
+    expect(result.data).toHaveLength(1);
+    expect(result.data[0].name).toBe('Coffee');
+  });
+
   it('should paginate the results', async (): Promise<void> => {
     const producer: IProducer = await inMemoryProducerRepository.create({
       name: 'User Teste',

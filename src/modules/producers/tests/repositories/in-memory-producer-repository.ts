@@ -73,28 +73,35 @@ export class InMemoryProducerRepository implements IProducersRepository {
   async list(
     data: IListRequestRepository<IProducer>,
   ): Promise<IListResponseRepository<IProducer>> {
-    const { skip = 0, take = 10, orderBy } = data;
-    const where = this.mapper.resolveWhereToList(data);
+    const skip = data.skip || 0;
+    const take = data.take || 10;
 
-    const filteredProducers = this.producers.filter((producer) =>
-      Object.entries(where).every(([key, value]) => producer[key] === value),
-    );
+    const where = this.mapper.resolveWhereToList(data) || {};
 
-    const sortedProducers = orderBy
-      ? filteredProducers.sort((a, b) => {
-          const field = Object.keys(orderBy)[0];
-          const order = orderBy[field] === 'asc' ? 1 : -1;
-          return a[field] > b[field] ? order : -order;
-        })
-      : filteredProducers;
+    const name = where.name as
+      | { startsWith?: string; mode?: string }
+      | undefined;
 
-    const paginatedProducers = sortedProducers.slice(skip, skip + take);
+    const startsWithValue = name?.startsWith?.replace(/%/g, '') || '';
+    const isInsensitive = name?.mode === 'insensitive';
+
+    const filteredProducers = this.producers.filter((producer) => {
+      let producerName = producer.name;
+
+      if (isInsensitive) {
+        producerName = producerName.toLowerCase();
+      }
+
+      return producerName.startsWith(
+        isInsensitive ? startsWithValue.toLowerCase() : startsWithValue,
+      );
+    });
 
     return {
       skip,
       take,
       count: filteredProducers.length,
-      data: paginatedProducers,
+      data: filteredProducers.slice(skip, skip + take),
     };
   }
 

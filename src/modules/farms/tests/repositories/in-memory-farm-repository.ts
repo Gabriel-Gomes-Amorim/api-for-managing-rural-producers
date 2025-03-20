@@ -73,28 +73,35 @@ export class InMemoryFarmRepository implements IFarmsRepository {
   async list(
     data: IListRequestRepository<IFarm>,
   ): Promise<IListResponseRepository<IFarm>> {
-    const { skip = 0, take = 10, orderBy } = data;
-    const where = this.mapper.resolveWhereToList(data);
+    const skip = data.skip || 0;
+    const take = data.take || 10;
 
-    const filteredFarms = this.farms.filter((farm) =>
-      Object.entries(where).every(([key, value]) => farm[key] === value),
-    );
+    const where = this.mapper.resolveWhereToList(data) || {};
 
-    const sortedFarms = orderBy
-      ? filteredFarms.sort((a, b) => {
-          const field = Object.keys(orderBy)[0];
-          const order = orderBy[field] === 'asc' ? 1 : -1;
-          return a[field] > b[field] ? order : -order;
-        })
-      : filteredFarms;
+    const name = where.name as
+      | { startsWith?: string; mode?: string }
+      | undefined;
 
-    const paginatedFarms = sortedFarms.slice(skip, skip + take);
+    const startsWithValue = name?.startsWith?.replace(/%/g, '') || '';
+    const isInsensitive = name?.mode === 'insensitive';
+
+    const filteredFarms = this.farms.filter((farm) => {
+      let farmName = farm.name;
+
+      if (isInsensitive) {
+        farmName = farmName.toLowerCase();
+      }
+
+      return farmName.startsWith(
+        isInsensitive ? startsWithValue.toLowerCase() : startsWithValue,
+      );
+    });
 
     return {
       skip,
       take,
       count: filteredFarms.length,
-      data: paginatedFarms,
+      data: filteredFarms.slice(skip, skip + take),
     };
   }
 
