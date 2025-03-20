@@ -12,7 +12,7 @@ async function bootstrap(): Promise<void> {
   app.useGlobalFilters(new AppErrorFilter());
 
   const config = new DocumentBuilder()
-    .setTitle('API Brain Agriculture')
+    .setTitle('API for managing rural producers')
     .setDescription('Api for managing rural producers')
     .setVersion('1.0')
     .build();
