@@ -63,6 +63,25 @@ export class PrismaPlantationRepository implements IPlantationsRepository {
       take,
       where,
       orderBy: data.orderBy,
+      include: {
+        harvest: {
+          select: {
+            id: true,
+            year: true,
+            farm: {
+              select: {
+                id: true,
+                name: true,
+                city: true,
+                state: true,
+                totalArea: true,
+                farmableArea: true,
+                vegetationArea: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     return {

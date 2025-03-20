@@ -64,10 +64,24 @@ export class PrismaProducerRepository implements IProducersRepository {
       orderBy: data.orderBy,
       include: {
         farms: {
-          include: {
+          select: {
+            id: true,
+            name: true,
+            city: true,
+            state: true,
+            totalArea: true,
+            farmableArea: true,
+            vegetationArea: true,
             harvests: {
-              include: {
-                plantation: {},
+              select: {
+                id: true,
+                year: true,
+                plantation: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
               },
             },
           },

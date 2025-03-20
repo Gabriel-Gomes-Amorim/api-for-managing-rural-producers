@@ -63,7 +63,18 @@ export class PrismaFarmRepository implements IFarmsRepository {
       where,
       orderBy: data.orderBy,
       include: {
-        harvests: true,
+        harvests: {
+          select: {
+            id: true,
+            year: true,
+            plantation: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
       },
     });
 

@@ -62,6 +62,26 @@ export class PrismaHarvestRepository implements IHarvestsRepository {
       take,
       where,
       orderBy: data.orderBy,
+      include: {
+        farm: {
+          select: {
+            id: true,
+            name: true,
+            city: true,
+            state: true,
+            totalArea: true,
+            farmableArea: true,
+            vegetationArea: true,
+            producerId: true,
+          },
+        },
+        plantation: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
     });
 
     return {
