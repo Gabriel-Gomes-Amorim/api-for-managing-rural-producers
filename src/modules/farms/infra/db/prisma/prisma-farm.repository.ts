@@ -10,6 +10,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaFarmMapper } from './mapper/prisma-farm-mapper';
 import { IFarmsRepository } from '@/modules/farms/repositories/farm-repository.interface';
 import { IFarm } from '@/modules/farms/entities/farm.entity';
+import { IGetFarmDashboardData } from '@/modules/farms/interfaces/IGetFarmDashboardData';
 
 @Injectable()
 export class PrismaFarmRepository implements IFarmsRepository {
@@ -101,5 +102,29 @@ export class PrismaFarmRepository implements IFarmsRepository {
         id,
       },
     });
+  }
+
+  async getDashboardData(): Promise<IGetFarmDashboardData> {
+    const totalFarms: number = await this.prisma.farm.count();
+
+    const totalHectares = await this.prisma.farm.aggregate({
+      _sum: { totalArea: true },
+    });
+
+    const farmsByState = await this.prisma.farm.groupBy({
+      by: ['state'],
+      _count: { state: true },
+    });
+
+    const farmsByStateData = farmsByState.map((stateData) => ({
+      state: stateData.state,
+      count: stateData._count.state,
+    }));
+
+    return {
+      totalFarms,
+      totalHectares: totalHectares._sum.totalArea || 0,
+      farmsByStateData,
+    };
   }
 }

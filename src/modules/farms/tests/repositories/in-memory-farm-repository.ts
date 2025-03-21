@@ -8,6 +8,7 @@ import {
 import { IFarmsRepository } from '../../repositories/farm-repository.interface';
 import { IFarm } from '../../entities/farm.entity';
 import { PrismaFarmMapper } from '../../infra/db/prisma/mapper/prisma-farm-mapper';
+import { IGetFarmDashboardData } from '../../interfaces/IGetFarmDashboardData';
 
 export class InMemoryFarmRepository implements IFarmsRepository {
   public farms: IFarm[] = [];
@@ -125,5 +126,32 @@ export class InMemoryFarmRepository implements IFarmsRepository {
 
   async delete(id: string): Promise<void> {
     this.farms = this.farms.filter((farm) => farm.id !== id);
+  }
+
+  async getDashboardData(): Promise<IGetFarmDashboardData> {
+    const totalFarms: number = this.farms.length;
+
+    const totalHectares = this.farms.reduce(
+      (sum, farm) => sum + (farm.totalArea || 0),
+      0,
+    );
+
+    const farmsByState = this.farms.reduce(
+      (acc, farm) => {
+        const state = farm.state;
+        acc[state] = (acc[state] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
+
+    return {
+      totalFarms,
+      totalHectares,
+      farmsByStateData: Object.entries(farmsByState).map(([state, count]) => ({
+        state,
+        count,
+      })),
+    };
   }
 }
