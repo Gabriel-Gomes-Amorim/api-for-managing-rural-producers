@@ -33,5 +33,12 @@ import { PrismaFarmRepository } from './infra/db/prisma/prisma-farm.repository';
       useClass: PrismaFarmRepository,
     },
   ],
+  exports: [
+    PrismaFarmRepository,
+    {
+      provide: 'IFarmsRepository',
+      useClass: PrismaFarmRepository,
+    },
+  ],
 })
 export class FarmModule {}
