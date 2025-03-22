@@ -20,6 +20,8 @@ A API permite gerenciar produtores rurais e suas propriedades, garantindo a inte
 - **Farms** - Cadastro e gerenciamento de propriedades rurais
 - **Harvests** - Registro de safras por fazenda
 - **Plantations** - Culturas plantadas vinculadas às safras
+- **Dashboard** - O módulo Dashboard exibe informações chave sobre as fazendas cadastradas:  
+  total de fazendas, total de hectares, distribuição de fazendas por estado, cultura plantada e uso do solo.
 
 ✅ **Regras de Negócio:**
 
