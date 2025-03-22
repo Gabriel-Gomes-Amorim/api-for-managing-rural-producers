@@ -1,8 +1,16 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Res,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreatePlantationService } from '../services/create-plantation.service';
 import { CreatePlantationDTO } from '../dtos/create-plantation.dto';
 import { IPlantation } from '../entities/plantation.entity';
+import { Response } from 'express';
 
 @Controller('plantations')
 @ApiTags('plantations')
@@ -12,15 +20,16 @@ export class CreatePlantationController {
   ) {}
 
   @Post()
-  @HttpCode(HttpStatus.CREATED)
-  async create(@Body() data: CreatePlantationDTO) {
+  async create(
+    @Body() data: CreatePlantationDTO,
+    @Res() res: Response,
+  ): Promise<Response> {
     const plantation: IPlantation =
       await this.createPlantationService.execute(data);
 
-    return {
+    return res.status(HttpStatus.CREATED).json({
       status: true,
-      statusCode: HttpStatus.CREATED,
       data: plantation,
-    };
+    });
   }
 }

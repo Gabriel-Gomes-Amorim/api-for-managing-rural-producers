@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Param,
-  Put,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, HttpStatus, Param, Put, Res } from '@nestjs/common';
 import { UpdateProducerService } from '../services/update-producer.service';
 import { UpdateProducerDTO } from '../dtos/update-producer.dto';
 import { IProducer } from '../entities/producer.entity';
@@ -19,7 +11,6 @@ export class UpdateProducerController {
   constructor(private readonly updateProducerService: UpdateProducerService) {}
 
   @Put(':id')
-  @HttpCode(HttpStatus.OK)
   async update(
     @Param('id') id: string,
     @Body() data: UpdateProducerDTO,

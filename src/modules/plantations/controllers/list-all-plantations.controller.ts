@@ -1,4 +1,11 @@
-import { Controller, Get, HttpCode, HttpStatus, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Query,
+  Res,
+} from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import {
   IListAllPlantationsRequestUseCase,
@@ -6,6 +13,7 @@ import {
 } from '../services/list-all-plantations.service';
 import { IPlantation } from '../entities/plantation.entity';
 import { IListResponseRepository } from '@/core/repositories';
+import { Response } from 'express';
 
 @Controller('plantations')
 @ApiTags('plantations')
@@ -29,7 +37,10 @@ export class ListPlantationsController {
     description: 'Number of plantations to skip',
   })
   @HttpCode(HttpStatus.OK)
-  async list(@Query() query: IListAllPlantationsRequestUseCase) {
+  async list(
+    @Query() query: IListAllPlantationsRequestUseCase,
+    @Res() res: Response,
+  ): Promise<Response> {
     const { name, take, skip } = query;
 
     const plantations: IListResponseRepository<IPlantation> =
@@ -39,10 +50,9 @@ export class ListPlantationsController {
         skip: skip ? Number(skip) : undefined,
       });
 
-    return {
+    return res.status(HttpStatus.OK).json({
       status: true,
-      statusCode: HttpStatus.OK,
       data: plantations,
-    };
+    });
   }
 }

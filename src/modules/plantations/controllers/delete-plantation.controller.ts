@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Delete,
-  HttpCode,
-  HttpStatus,
-  Param,
-} from '@nestjs/common';
+import { Controller, Delete, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { DeletePlantationService } from '../services/delete-plantation.service';
 
@@ -16,7 +10,6 @@ export class DeletePlantationController {
   ) {}
 
   @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id') id: string): Promise<void> {
     await this.deletePlantationService.execute(id);
   }
