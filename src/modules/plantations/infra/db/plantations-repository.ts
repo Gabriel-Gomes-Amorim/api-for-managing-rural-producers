@@ -4,7 +4,7 @@ import {
   IListResponseRepository,
   WhereParams,
 } from 'src/core/repositories';
-import { IPlantation } from '../entities/plantation.entity';
+import { IPlantation } from '../../entities/plantation.entity';
 
 export interface IPlantationsRepository {
   create(

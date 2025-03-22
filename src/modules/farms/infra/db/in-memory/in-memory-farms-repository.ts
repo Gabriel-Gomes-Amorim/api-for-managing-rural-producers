@@ -145,6 +145,15 @@ export class InMemoryFarmsRepository implements IFarmsRepository {
       {} as Record<string, number>,
     );
 
+    const landUsage = this.farms.reduce(
+      (acc, farm) => {
+        acc.farmableArea += farm.farmableArea || 0;
+        acc.vegetationArea += farm.vegetationArea || 0;
+        return acc;
+      },
+      { farmableArea: 0, vegetationArea: 0 },
+    );
+
     return {
       totalFarms,
       totalHectares,
@@ -152,6 +161,8 @@ export class InMemoryFarmsRepository implements IFarmsRepository {
         state,
         count,
       })),
+      plantationsData: [{ name: 'Soy', count: 2 }],
+      landUsage,
     };
   }
 }

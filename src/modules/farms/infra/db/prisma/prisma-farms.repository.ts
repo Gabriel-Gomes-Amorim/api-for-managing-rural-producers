@@ -121,10 +121,32 @@ export class PrismaFarmsRepository implements IFarmsRepository {
       count: stateData._count.state,
     }));
 
+    const plantationsByType = await this.prisma.plantation.groupBy({
+      by: ['name'],
+      _count: { name: true },
+    });
+
+    const plantationsData = plantationsByType.map((plantation) => ({
+      name: plantation.name,
+      count: plantation._count.name,
+    }));
+
+    const landUsage = await this.prisma.farm.aggregate({
+      _sum: {
+        farmableArea: true,
+        vegetationArea: true,
+      },
+    });
+
     return {
       totalFarms,
       totalHectares: totalHectares._sum.totalArea || 0,
       farmsByStateData,
+      plantationsData,
+      landUsage: {
+        farmableArea: landUsage._sum.farmableArea ?? 0,
+        vegetationArea: landUsage._sum.vegetationArea ?? 0,
+      },
     };
   }
 }

@@ -20,6 +20,14 @@ export class LoadDashboardDataService {
         state: item.state,
         count: item.count,
       })),
+      plantationsData: dashboardData.plantationsData.map((item) => ({
+        name: item.name,
+        count: item.count,
+      })),
+      landUsage: {
+        farmableArea: dashboardData.landUsage.farmableArea,
+        vegetationArea: dashboardData.landUsage.vegetationArea,
+      },
     };
   }
 }
