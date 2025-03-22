@@ -7,14 +7,14 @@ import {
 } from 'src/core/repositories';
 import { PrismaService } from 'src/shared/infra/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { PrismaHarvestMapper } from './mapper/prisma-harvest-mapper';
-import { IHarvestsRepository } from '@/modules/harvests/repositories/harvest-repository.interface';
 import { IHarvest } from '@/modules/harvests/entities/harvest.entity';
+import { IHarvestsRepository } from '../harvests-repository';
+import { PrismaHarvestsMapper } from './mapper/prisma-harvests.mapper';
 
 @Injectable()
-export class PrismaHarvestRepository implements IHarvestsRepository {
+export class PrismaHarvestsRepository implements IHarvestsRepository {
   constructor(private readonly prisma: PrismaService) {}
-  mapper = new PrismaHarvestMapper();
+  mapper = new PrismaHarvestsMapper();
 
   async create(
     data: Omit<IHarvest, 'id' | 'createdAt' | 'updatedAt'>,

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { AppError } from '@/shared/errors/app-error';
-import { IFarmsRepository } from '../repositories/farm-repository.interface';
 import { IFarm } from '../entities/farm.entity';
+import { IFarmsRepository } from '../infra/db/farms-repository';
 
 @Injectable()
 export class UpdateFarmService {

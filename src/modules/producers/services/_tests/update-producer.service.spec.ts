@@ -1,17 +1,17 @@
 import { UpdateProducerService } from '../update-producer.service';
 import { InMemoryProducersRepository } from '../../infra/db/in-memory/in-memory-producers.repository';
 
-let inMemoryProducerRepository: InMemoryProducersRepository;
+let inMemoryProducersRepository: InMemoryProducersRepository;
 let sut: UpdateProducerService;
 
 describe('UpdateProducerService', () => {
   beforeEach(() => {
-    inMemoryProducerRepository = new InMemoryProducersRepository();
-    sut = new UpdateProducerService(inMemoryProducerRepository);
+    inMemoryProducersRepository = new InMemoryProducersRepository();
+    sut = new UpdateProducerService(inMemoryProducersRepository);
   });
 
   it('should update an existing producer', async () => {
-    const producer = await inMemoryProducerRepository.create({
+    const producer = await inMemoryProducersRepository.create({
       name: 'Old Name',
       cpfCnpj: '12345678900',
     });

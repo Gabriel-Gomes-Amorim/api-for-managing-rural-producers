@@ -1,26 +1,26 @@
 import { IProducer } from '@/modules/producers/entities/producer.entity';
 import { IFarm } from '../../entities/farm.entity';
-import { FindFarmService } from '../../services/find-farm.service';
-import { InMemoryFarmRepository } from '../repositories/in-memory-farm-repository';
+import { FindFarmService } from '../find-farm.service';
 import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
+import { InMemoryFarmsRepository } from '../../infra/db/in-memory/in-memory-farms-repository';
 
-let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducersRepository;
+let inMemoryFarmsRepository: InMemoryFarmsRepository;
+let inMemoryProducersRepository: InMemoryProducersRepository;
 let sut: FindFarmService;
 describe('FindFarmService', (): void => {
   beforeEach(async (): Promise<void> => {
-    inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducersRepository();
-    sut = new FindFarmService(inMemoryFarmRepository);
+    inMemoryFarmsRepository = new InMemoryFarmsRepository();
+    inMemoryProducersRepository = new InMemoryProducersRepository();
+    sut = new FindFarmService(inMemoryFarmsRepository);
   });
 
   it('should return Farm successfully', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });
 
-    const farm: IFarm = await inMemoryFarmRepository.create({
+    const farm: IFarm = await inMemoryFarmsRepository.create({
       name: 'Farm A',
       city: 'City A',
       state: 'State A',

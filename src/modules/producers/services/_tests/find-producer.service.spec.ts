@@ -2,16 +2,16 @@ import { IProducer } from '../../entities/producer.entity';
 import { FindProducerService } from '../find-producer.service';
 import { InMemoryProducersRepository } from '../../infra/db/in-memory/in-memory-producers.repository';
 
-let inMemoryProducerRepository: InMemoryProducersRepository;
+let inMemoryProducersRepository: InMemoryProducersRepository;
 let sut: FindProducerService;
 describe('FindProducerService', (): void => {
   beforeEach(async (): Promise<void> => {
-    inMemoryProducerRepository = new InMemoryProducersRepository();
-    sut = new FindProducerService(inMemoryProducerRepository);
+    inMemoryProducersRepository = new InMemoryProducersRepository();
+    sut = new FindProducerService(inMemoryProducersRepository);
   });
 
   it('should return producer successfully', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });

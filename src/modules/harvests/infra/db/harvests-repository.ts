@@ -4,7 +4,7 @@ import {
   IListResponseRepository,
   WhereParams,
 } from 'src/core/repositories';
-import { IHarvest } from '../entities/harvest.entity';
+import { IHarvest } from '../../entities/harvest.entity';
 
 export interface IHarvestsRepository {
   create(

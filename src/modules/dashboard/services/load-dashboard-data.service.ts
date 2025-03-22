@@ -1,5 +1,5 @@
+import { IFarmsRepository } from '@/modules/farms/infra/db/farms-repository';
 import { IGetFarmDashboardData } from '@/modules/farms/interfaces/IGetFarmDashboardData';
-import { IFarmsRepository } from '@/modules/farms/repositories/farm-repository.interface';
 import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()

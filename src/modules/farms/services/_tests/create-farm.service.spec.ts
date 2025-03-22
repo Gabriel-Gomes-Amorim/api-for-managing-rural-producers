@@ -1,22 +1,22 @@
 import { IFarm } from '../../entities/farm.entity';
-import { CreateFarmService } from '../../services/create-farm.service';
-import { InMemoryFarmRepository } from '../repositories/in-memory-farm-repository';
+import { CreateFarmService } from '../create-farm.service';
 import { IProducer } from '@/modules/producers/entities/producer.entity';
 import { CreateFarmDTO } from '../../dtos/create-farm.dto';
 import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
+import { InMemoryFarmsRepository } from '../../infra/db/in-memory/in-memory-farms-repository';
 
-let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducersRepository;
+let inMemoryFarmsRepository: InMemoryFarmsRepository;
+let inMemoryProducersRepository: InMemoryProducersRepository;
 let sut: CreateFarmService;
 describe('CreateFarmService', (): void => {
   beforeEach(async (): Promise<void> => {
-    inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducersRepository();
-    sut = new CreateFarmService(inMemoryFarmRepository);
+    inMemoryFarmsRepository = new InMemoryFarmsRepository();
+    inMemoryProducersRepository = new InMemoryProducersRepository();
+    sut = new CreateFarmService(inMemoryFarmsRepository);
   });
 
   it('should create a new Farm successfully', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });
@@ -33,12 +33,12 @@ describe('CreateFarmService', (): void => {
 
     expect(result.name).toBe('Farm A');
     expect(result.producerId).toBe(producer.id);
-    expect(inMemoryFarmRepository.farms.length).toBe(1);
-    expect(inMemoryFarmRepository.farms[0]).toMatchObject(result);
+    expect(inMemoryFarmsRepository.farms.length).toBe(1);
+    expect(inMemoryFarmsRepository.farms[0]).toMatchObject(result);
   });
 
   it('should throw an error when creating a Farm with an existing name, state and city', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });
@@ -62,7 +62,7 @@ describe('CreateFarmService', (): void => {
   });
 
   it('should throw an error when farmableArea + vegetationArea exceeds totalArea', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });

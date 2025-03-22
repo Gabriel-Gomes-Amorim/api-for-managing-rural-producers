@@ -1,32 +1,32 @@
 import { IProducer } from '@/modules/producers/entities/producer.entity';
 import { IListResponseRepository } from '@/core/repositories';
-import { InMemoryHarvestRepository } from '@/modules/harvests/tests/repositories/in-memory-harvest-repository';
 import { IHarvest } from '@/modules/harvests/entities/harvest.entity';
-import { ListAllHarvestsService } from '../../services/list-all-harvests.service';
-import { InMemoryFarmRepository } from '@/modules/farms/tests/repositories/in-memory-farm-repository';
+import { ListAllHarvestsService } from '../list-all-harvests.service';
 import { IFarm } from '@/modules/farms/entities/farm.entity';
 import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
+import { InMemoryHarvestsRepository } from '../../infra/db/in-memory/in-memory-harvests-repository';
+import { InMemoryFarmsRepository } from '@/modules/farms/infra/db/in-memory/in-memory-farms-repository';
 
-let inMemoryHarvestRepository: InMemoryHarvestRepository;
-let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducersRepository;
+let inMemoryHarvestsRepository: InMemoryHarvestsRepository;
+let inMemoryFarmsRepository: InMemoryFarmsRepository;
+let inMemoryProducersRepository: InMemoryProducersRepository;
 let sut: ListAllHarvestsService;
 
 describe('ListAllHarvestService', (): void => {
   beforeEach((): void => {
-    inMemoryHarvestRepository = new InMemoryHarvestRepository();
-    inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducersRepository();
-    sut = new ListAllHarvestsService(inMemoryHarvestRepository);
+    inMemoryHarvestsRepository = new InMemoryHarvestsRepository();
+    inMemoryFarmsRepository = new InMemoryFarmsRepository();
+    inMemoryProducersRepository = new InMemoryProducersRepository();
+    sut = new ListAllHarvestsService(inMemoryHarvestsRepository);
   });
 
   it('should list all harvest', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });
 
-    const farm: IFarm = await inMemoryFarmRepository.create({
+    const farm: IFarm = await inMemoryFarmsRepository.create({
       name: 'Farm A',
       city: 'City A',
       state: 'State A',
@@ -36,12 +36,12 @@ describe('ListAllHarvestService', (): void => {
       producerId: producer.id,
     });
 
-    const harvest1: IHarvest = await inMemoryHarvestRepository.create({
+    const harvest1: IHarvest = await inMemoryHarvestsRepository.create({
       year: 2025,
       farmId: farm.id,
     });
 
-    const harvest2: IHarvest = await inMemoryHarvestRepository.create({
+    const harvest2: IHarvest = await inMemoryHarvestsRepository.create({
       year: 2026,
       farmId: farm.id,
     });
@@ -53,12 +53,12 @@ describe('ListAllHarvestService', (): void => {
   });
 
   it('should filter harvests by name', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });
 
-    const farm: IFarm = await inMemoryFarmRepository.create({
+    const farm: IFarm = await inMemoryFarmsRepository.create({
       name: 'Farm A',
       city: 'City A',
       state: 'State A',
@@ -68,12 +68,12 @@ describe('ListAllHarvestService', (): void => {
       producerId: producer.id,
     });
 
-    await inMemoryHarvestRepository.create({
+    await inMemoryHarvestsRepository.create({
       year: 2025,
       farmId: farm.id,
     });
 
-    await inMemoryHarvestRepository.create({
+    await inMemoryHarvestsRepository.create({
       year: 2026,
       farmId: farm.id,
     });
@@ -89,12 +89,12 @@ describe('ListAllHarvestService', (): void => {
   });
 
   it('should paginate the results', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });
 
-    const farm: IFarm = await inMemoryFarmRepository.create({
+    const farm: IFarm = await inMemoryFarmsRepository.create({
       name: 'Farm A',
       city: 'City A',
       state: 'State A',
@@ -105,7 +105,7 @@ describe('ListAllHarvestService', (): void => {
     });
 
     for (let i: number = 1; i <= 5; i++) {
-      await inMemoryHarvestRepository.create({
+      await inMemoryHarvestsRepository.create({
         year: 2025 + i,
         farmId: farm.id,
       });

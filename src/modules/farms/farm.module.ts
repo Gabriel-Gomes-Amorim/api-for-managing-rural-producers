@@ -10,7 +10,7 @@ import { DeleteFarmService } from './services/delete-farm.service';
 import { FindFarmService } from './services/find-farm.service';
 import { ListAllFarmsService } from './services/list-all-farms.service';
 import { UpdateFarmService } from './services/update-farm.service';
-import { PrismaFarmRepository } from './infra/db/prisma/prisma-farm.repository';
+import { PrismaFarmsRepository } from './infra/db/prisma/prisma-farms.repository';
 
 @Module({
   imports: [PrismaModule],
@@ -27,17 +27,17 @@ import { PrismaFarmRepository } from './infra/db/prisma/prisma-farm.repository';
     FindFarmService,
     ListAllFarmsService,
     UpdateFarmService,
-    PrismaFarmRepository,
+    PrismaFarmsRepository,
     {
       provide: 'IFarmsRepository',
-      useClass: PrismaFarmRepository,
+      useClass: PrismaFarmsRepository,
     },
   ],
   exports: [
-    PrismaFarmRepository,
+    PrismaFarmsRepository,
     {
       provide: 'IFarmsRepository',
-      useClass: PrismaFarmRepository,
+      useClass: PrismaFarmsRepository,
     },
   ],
 })

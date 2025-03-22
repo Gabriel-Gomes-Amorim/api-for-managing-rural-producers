@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IHarvestsRepository } from '../repositories/harvest-repository.interface';
+import { IHarvestsRepository } from '../infra/db/harvests-repository';
 
 @Injectable()
 export class DeleteHarvestService {

@@ -5,14 +5,14 @@ import {
   IListResponseRepository,
   WhereParams,
 } from '@/core/repositories';
-import { IFarmsRepository } from '../../repositories/farm-repository.interface';
-import { IFarm } from '../../entities/farm.entity';
-import { PrismaFarmMapper } from '../../infra/db/prisma/mapper/prisma-farm-mapper';
-import { IGetFarmDashboardData } from '../../interfaces/IGetFarmDashboardData';
+import { IFarm } from '../../../entities/farm.entity';
+import { IGetFarmDashboardData } from '../../../interfaces/IGetFarmDashboardData';
+import { IFarmsRepository } from '../farms-repository';
+import { PrismaFarmsMapper } from '../prisma/mapper/prisma-farms.mapper';
 
-export class InMemoryFarmRepository implements IFarmsRepository {
+export class InMemoryFarmsRepository implements IFarmsRepository {
   public farms: IFarm[] = [];
-  mapper = new PrismaFarmMapper();
+  mapper = new PrismaFarmsMapper();
 
   async create(
     data: Omit<IFarm, 'id' | 'createdAt' | 'updatedAt'>,

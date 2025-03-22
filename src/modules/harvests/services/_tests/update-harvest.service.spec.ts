@@ -1,33 +1,31 @@
 import { IProducer } from '@/modules/producers/entities/producer.entity';
-import { InMemoryFarmRepository } from '@/modules/farms/tests/repositories/in-memory-farm-repository';
 import { IFarm } from '@/modules/farms/entities/farm.entity';
-import { InMemoryHarvestRepository } from '../repositories/in-memory-harvest-repository';
-import { UpdateHarvestService } from '../../services/update-harvest.service';
+import { UpdateHarvestService } from '../update-harvest.service';
 import { IHarvest } from '../../entities/harvest.entity';
 import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
+import { InMemoryHarvestsRepository } from '../../infra/db/in-memory/in-memory-harvests-repository';
+import { InMemoryFarmsRepository } from '@/modules/farms/infra/db/in-memory/in-memory-farms-repository';
 
-let inMemoryHarvestRepository: InMemoryHarvestRepository;
-let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducersRepository;
+let inMemoryHarvestsRepository: InMemoryHarvestsRepository;
+let inMemoryFarmsRepository: InMemoryFarmsRepository;
+let inMemoryProducersRepository: InMemoryProducersRepository;
 let sut: UpdateHarvestService;
 
 describe('UpdateHarvestService', (): void => {
   beforeEach((): void => {
-    inMemoryHarvestRepository = new InMemoryHarvestRepository();
-    inMemoryHarvestRepository = new InMemoryHarvestRepository();
-    inMemoryHarvestRepository = new InMemoryHarvestRepository();
-    inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducersRepository();
-    sut = new UpdateHarvestService(inMemoryHarvestRepository);
+    inMemoryHarvestsRepository = new InMemoryHarvestsRepository();
+    inMemoryFarmsRepository = new InMemoryFarmsRepository();
+    inMemoryProducersRepository = new InMemoryProducersRepository();
+    sut = new UpdateHarvestService(inMemoryHarvestsRepository);
   });
 
   it('should update an existing harvest', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });
 
-    const farm: IFarm = await inMemoryFarmRepository.create({
+    const farm: IFarm = await inMemoryFarmsRepository.create({
       name: 'Farm A',
       city: 'City A',
       state: 'State A',
@@ -37,7 +35,7 @@ describe('UpdateHarvestService', (): void => {
       producerId: producer.id,
     });
 
-    const harvest: IHarvest = await inMemoryHarvestRepository.create({
+    const harvest: IHarvest = await inMemoryHarvestsRepository.create({
       year: 2025,
       farmId: farm.id,
     });

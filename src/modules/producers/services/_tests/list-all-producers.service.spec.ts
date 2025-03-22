@@ -3,22 +3,22 @@ import { IProducer } from '../../entities/producer.entity';
 import { IListResponseRepository } from '@/core/repositories';
 import { InMemoryProducersRepository } from '../../infra/db/in-memory/in-memory-producers.repository';
 
-let inMemoryProducerRepository: InMemoryProducersRepository;
+let inMemoryProducersRepository: InMemoryProducersRepository;
 let sut: ListAllProducersService;
 
 describe('ListAllProducersService', (): void => {
   beforeEach((): void => {
-    inMemoryProducerRepository = new InMemoryProducersRepository();
-    sut = new ListAllProducersService(inMemoryProducerRepository);
+    inMemoryProducersRepository = new InMemoryProducersRepository();
+    sut = new ListAllProducersService(inMemoryProducersRepository);
   });
 
   it('should list all producers', async (): Promise<void> => {
-    const producer1: IProducer = await inMemoryProducerRepository.create({
+    const producer1: IProducer = await inMemoryProducersRepository.create({
       name: 'User Test 1',
       cpfCnpj: '12345678900',
     });
 
-    const producer2: IProducer = await inMemoryProducerRepository.create({
+    const producer2: IProducer = await inMemoryProducersRepository.create({
       name: 'User Test 2',
       cpfCnpj: '12345678999',
     });
@@ -30,12 +30,12 @@ describe('ListAllProducersService', (): void => {
   });
 
   it('should filter producers by name', async (): Promise<void> => {
-    await inMemoryProducerRepository.create({
+    await inMemoryProducersRepository.create({
       name: 'John',
       cpfCnpj: '12345678900',
     });
 
-    await inMemoryProducerRepository.create({
+    await inMemoryProducersRepository.create({
       name: 'User Test',
       cpfCnpj: '12345678999',
     });
@@ -52,7 +52,7 @@ describe('ListAllProducersService', (): void => {
 
   it('should paginate the results', async (): Promise<void> => {
     for (let i: number = 1; i <= 5; i++) {
-      await inMemoryProducerRepository.create({
+      await inMemoryProducersRepository.create({
         name: `Producer ${i}`,
         cpfCnpj: `1234567899${i}`,
       });

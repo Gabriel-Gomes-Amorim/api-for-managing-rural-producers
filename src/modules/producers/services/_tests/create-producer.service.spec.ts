@@ -3,12 +3,12 @@ import { IProducer } from '../../entities/producer.entity';
 import { CreateProducerDTO } from '../../dtos/create-producer.dto';
 import { InMemoryProducersRepository } from '../../infra/db/in-memory/in-memory-producers.repository';
 
-let inMemoryProducerRepository: InMemoryProducersRepository;
+let inMemoryProducersRepository: InMemoryProducersRepository;
 let sut: CreateProducerService;
 describe('CreateProducerService', (): void => {
   beforeEach(async (): Promise<void> => {
-    inMemoryProducerRepository = new InMemoryProducersRepository();
-    sut = new CreateProducerService(inMemoryProducerRepository);
+    inMemoryProducersRepository = new InMemoryProducersRepository();
+    sut = new CreateProducerService(inMemoryProducersRepository);
   });
 
   it('should create a new producer successfully', async (): Promise<void> => {
@@ -19,8 +19,8 @@ describe('CreateProducerService', (): void => {
 
     expect(result.name).toBe('User Teste');
     expect(result.cpfCnpj).toBe('12345678900');
-    expect(inMemoryProducerRepository.producers.length).toBe(1);
-    expect(inMemoryProducerRepository.producers[0]).toMatchObject(result);
+    expect(inMemoryProducersRepository.producers.length).toBe(1);
+    expect(inMemoryProducersRepository.producers[0]).toMatchObject(result);
   });
 
   it('should throw an error when creating a producer with an existing name or CPF/CNPJ', async (): Promise<void> => {

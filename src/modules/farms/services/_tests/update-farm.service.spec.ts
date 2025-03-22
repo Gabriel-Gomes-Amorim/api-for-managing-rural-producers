@@ -1,27 +1,27 @@
 import { IProducer } from '@/modules/producers/entities/producer.entity';
-import { UpdateFarmService } from '../../services/update-farm.service';
-import { InMemoryFarmRepository } from '../repositories/in-memory-farm-repository';
+import { UpdateFarmService } from '../update-farm.service';
 import { IFarm } from '../../entities/farm.entity';
 import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
+import { InMemoryFarmsRepository } from '../../infra/db/in-memory/in-memory-farms-repository';
 
-let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducersRepository;
+let inMemoryFarmsRepository: InMemoryFarmsRepository;
+let inMemoryProducersRepository: InMemoryProducersRepository;
 let sut: UpdateFarmService;
 
 describe('UpdateFarmService', (): void => {
   beforeEach((): void => {
-    inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducersRepository();
-    sut = new UpdateFarmService(inMemoryFarmRepository);
+    inMemoryFarmsRepository = new InMemoryFarmsRepository();
+    inMemoryProducersRepository = new InMemoryProducersRepository();
+    sut = new UpdateFarmService(inMemoryFarmsRepository);
   });
 
   it('should update an existing farm', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });
 
-    const farm: IFarm = await inMemoryFarmRepository.create({
+    const farm: IFarm = await inMemoryFarmsRepository.create({
       name: 'Farm A',
       city: 'City A',
       state: 'State A',

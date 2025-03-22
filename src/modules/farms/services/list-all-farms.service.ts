@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IListResponseRepository } from 'src/core/repositories';
-import { IFarmsRepository } from '../repositories/farm-repository.interface';
 import { IFarm } from '../entities/farm.entity';
+import { IFarmsRepository } from '../infra/db/farms-repository';
 
 export interface IListAllFarmsRequestUseCase {
   name?: string;

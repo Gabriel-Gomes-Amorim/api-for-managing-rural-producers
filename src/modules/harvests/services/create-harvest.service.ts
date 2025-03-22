@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IHarvestsRepository } from '../repositories/harvest-repository.interface';
 import { CreateHarvestDTO } from '../dtos/create-harvest.dto';
 import { IHarvest } from '../entities/harvest.entity';
+import { IHarvestsRepository } from '../infra/db/harvests-repository';
 
 @Injectable()
 export class CreateHarvestService {

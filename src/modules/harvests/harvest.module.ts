@@ -10,7 +10,7 @@ import { DeleteHarvestService } from './services/delete-harvest.service';
 import { FindHarvestService } from './services/find-harvest.service';
 import { ListAllHarvestsService } from './services/list-all-harvests.service';
 import { UpdateHarvestService } from './services/update-harvest.service';
-import { PrismaHarvestRepository } from './infra/db/prisma/prisma-harvest.repository';
+import { PrismaHarvestsRepository } from './infra/db/prisma/prisma-harvests.repository';
 
 @Module({
   imports: [PrismaModule],
@@ -27,10 +27,10 @@ import { PrismaHarvestRepository } from './infra/db/prisma/prisma-harvest.reposi
     FindHarvestService,
     ListAllHarvestsService,
     UpdateHarvestService,
-    PrismaHarvestRepository,
+    PrismaHarvestsRepository,
     {
       provide: 'IHarvestsRepository',
-      useClass: PrismaHarvestRepository,
+      useClass: PrismaHarvestsRepository,
     },
   ],
 })

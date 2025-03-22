@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IFarmsRepository } from '../repositories/farm-repository.interface';
+import { IFarmsRepository } from '../infra/db/farms-repository';
 
 @Injectable()
 export class DeleteFarmService {

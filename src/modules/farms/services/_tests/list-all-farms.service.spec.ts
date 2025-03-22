@@ -1,28 +1,28 @@
 import { IProducer } from '@/modules/producers/entities/producer.entity';
 import { IFarm } from '../../entities/farm.entity';
-import { ListAllFarmsService } from '../../services/list-all-farms.service';
-import { InMemoryFarmRepository } from '../repositories/in-memory-farm-repository';
+import { ListAllFarmsService } from '../list-all-farms.service';
 import { IListResponseRepository } from '@/core/repositories';
 import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
+import { InMemoryFarmsRepository } from '../../infra/db/in-memory/in-memory-farms-repository';
 
-let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducersRepository;
+let inMemoryFarmsRepository: InMemoryFarmsRepository;
+let inMemoryProducersRepository: InMemoryProducersRepository;
 let sut: ListAllFarmsService;
 
 describe('ListAllFarmsService', (): void => {
   beforeEach((): void => {
-    inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducersRepository();
-    sut = new ListAllFarmsService(inMemoryFarmRepository);
+    inMemoryFarmsRepository = new InMemoryFarmsRepository();
+    inMemoryProducersRepository = new InMemoryProducersRepository();
+    sut = new ListAllFarmsService(inMemoryFarmsRepository);
   });
 
   it('should list all farms', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });
 
-    const farm1: IFarm = await inMemoryFarmRepository.create({
+    const farm1: IFarm = await inMemoryFarmsRepository.create({
       name: 'Farm A',
       city: 'City A',
       state: 'State A',
@@ -32,7 +32,7 @@ describe('ListAllFarmsService', (): void => {
       producerId: producer.id,
     });
 
-    const farm2: IFarm = await inMemoryFarmRepository.create({
+    const farm2: IFarm = await inMemoryFarmsRepository.create({
       name: 'Farm B',
       city: 'City B',
       state: 'State B',
@@ -49,12 +49,12 @@ describe('ListAllFarmsService', (): void => {
   });
 
   it('should filter farms by name', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });
 
-    await inMemoryFarmRepository.create({
+    await inMemoryFarmsRepository.create({
       name: 'Farm A',
       city: 'City A',
       state: 'State A',
@@ -64,7 +64,7 @@ describe('ListAllFarmsService', (): void => {
       producerId: producer.id,
     });
 
-    await inMemoryFarmRepository.create({
+    await inMemoryFarmsRepository.create({
       name: 'Farm B',
       city: 'City B',
       state: 'State B',
@@ -83,13 +83,13 @@ describe('ListAllFarmsService', (): void => {
   });
 
   it('should paginate the results', async (): Promise<void> => {
-    const producer: IProducer = await inMemoryProducerRepository.create({
+    const producer: IProducer = await inMemoryProducersRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
     });
 
     for (let i: number = 1; i <= 5; i++) {
-      await inMemoryFarmRepository.create({
+      await inMemoryFarmsRepository.create({
         name: `Farm ${i}`,
         city: `City ${i}`,
         state: `State ${i}`,

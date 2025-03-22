@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IListResponseRepository } from 'src/core/repositories';
-import { IHarvestsRepository } from '../repositories/harvest-repository.interface';
+import { IHarvestsRepository } from '../infra/db/harvests-repository';
 import { IHarvest } from '../entities/harvest.entity';
 
 export interface IListAllHarvestsRequestUseCase {

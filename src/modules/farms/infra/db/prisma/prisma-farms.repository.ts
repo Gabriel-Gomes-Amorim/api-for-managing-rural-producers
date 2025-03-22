@@ -7,15 +7,15 @@ import {
 } from 'src/core/repositories';
 import { PrismaService } from 'src/shared/infra/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { PrismaFarmMapper } from './mapper/prisma-farm-mapper';
-import { IFarmsRepository } from '@/modules/farms/repositories/farm-repository.interface';
+import { PrismaFarmsMapper } from './mapper/prisma-farms.mapper';
 import { IFarm } from '@/modules/farms/entities/farm.entity';
 import { IGetFarmDashboardData } from '@/modules/farms/interfaces/IGetFarmDashboardData';
+import { IFarmsRepository } from '../farms-repository';
 
 @Injectable()
-export class PrismaFarmRepository implements IFarmsRepository {
+export class PrismaFarmsRepository implements IFarmsRepository {
   constructor(private readonly prisma: PrismaService) {}
-  mapper = new PrismaFarmMapper();
+  mapper = new PrismaFarmsMapper();
 
   async create(
     data: Omit<IFarm, 'id' | 'createdAt' | 'updatedAt'>,

@@ -5,13 +5,13 @@ import {
   IListResponseRepository,
   WhereParams,
 } from '@/core/repositories';
-import { IHarvestsRepository } from '../../repositories/harvest-repository.interface';
-import { IHarvest } from '../../entities/harvest.entity';
-import { PrismaHarvestMapper } from '../../infra/db/prisma/mapper/prisma-harvest-mapper';
+import { IHarvestsRepository } from '../harvests-repository';
+import { PrismaHarvestsMapper } from '../prisma/mapper/prisma-harvests.mapper';
+import { IHarvest } from '@/modules/harvests/entities/harvest.entity';
 
-export class InMemoryHarvestRepository implements IHarvestsRepository {
+export class InMemoryHarvestsRepository implements IHarvestsRepository {
   public harvests: IHarvest[] = [];
-  mapper = new PrismaHarvestMapper();
+  mapper = new PrismaHarvestsMapper();
 
   async create(
     data: Omit<IHarvest, 'id' | 'createdAt' | 'updatedAt'>,
