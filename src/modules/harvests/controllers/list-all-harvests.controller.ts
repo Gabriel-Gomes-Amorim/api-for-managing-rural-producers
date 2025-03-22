@@ -1,5 +1,5 @@
 import { Controller, Get, HttpCode, HttpStatus, Query } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import {
   IListAllHarvestsRequestUseCase,
   ListAllHarvestsService,
@@ -15,6 +15,19 @@ export class ListHarvestsController {
   ) {}
 
   @Get()
+  @ApiQuery({ name: 'name', required: false, description: 'Harvest name' })
+  @ApiQuery({
+    name: 'take',
+    required: false,
+    type: Number,
+    description: 'Number of harvests to be returned',
+  })
+  @ApiQuery({
+    name: 'skip',
+    required: false,
+    type: Number,
+    description: 'Number of harvests to skip',
+  })
   @HttpCode(HttpStatus.OK)
   async list(@Query() query: IListAllHarvestsRequestUseCase) {
     const { year, take, skip } = query;

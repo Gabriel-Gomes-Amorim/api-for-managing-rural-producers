@@ -3,7 +3,7 @@ import {
   IListAllProducersRequestUseCase,
   ListAllProducersService,
 } from '../services/list-all-producers.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { IProducer } from '../entities/producer.entity';
 import { IListResponseRepository } from '@/core/repositories';
 import { Response } from 'express';
@@ -16,6 +16,19 @@ export class ListProducersController {
   ) {}
 
   @Get()
+  @ApiQuery({ name: 'name', required: false, description: 'Producer name' })
+  @ApiQuery({
+    name: 'take',
+    required: false,
+    type: Number,
+    description: 'Number of producers to be returned',
+  })
+  @ApiQuery({
+    name: 'skip',
+    required: false,
+    type: Number,
+    description: 'Number of producers to skip',
+  })
   async list(
     @Query() query: IListAllProducersRequestUseCase,
     @Res() res: Response,
