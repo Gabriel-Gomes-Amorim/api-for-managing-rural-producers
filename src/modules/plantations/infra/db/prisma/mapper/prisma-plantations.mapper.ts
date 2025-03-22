@@ -3,7 +3,7 @@ import { setFindTypeToField } from '@/shared/utils/repositories/setFindTypeToFie
 import { Prisma } from '@prisma/client';
 import { IResolveWhereToList, TField } from 'src/core/repositories';
 
-export class PrismaPlantationMapper {
+export class PrismaPlantationsMapper {
   resolveWhereToList({
     fields,
     operator = 'AND',

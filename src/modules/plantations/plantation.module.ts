@@ -10,7 +10,7 @@ import { DeletePlantationService } from './services/delete-plantation.service';
 import { FindPlantationService } from './services/find-plantation.service';
 import { ListAllPlantationsService } from './services/list-all-plantations.service';
 import { UpdatePlantationService } from './services/update-plantantion.service';
-import { PrismaPlantationRepository } from './infra/db/prisma/prisma-plantation.repository';
+import { PrismaPlantationsRepository } from './infra/db/prisma/prisma-plantations.repository';
 
 @Module({
   imports: [PrismaModule],
@@ -27,10 +27,10 @@ import { PrismaPlantationRepository } from './infra/db/prisma/prisma-plantation.
     FindPlantationService,
     ListAllPlantationsService,
     UpdatePlantationService,
-    PrismaPlantationRepository,
+    PrismaPlantationsRepository,
     {
       provide: 'IPlantationsRepository',
-      useClass: PrismaPlantationRepository,
+      useClass: PrismaPlantationsRepository,
     },
   ],
 })

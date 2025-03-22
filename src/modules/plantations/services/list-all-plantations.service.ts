@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IListResponseRepository } from 'src/core/repositories';
-import { IPlantationsRepository } from '../repositories/plantation-repository.interface';
+import { IPlantationsRepository } from '../infra/db/plantations-repository';
 import { IPlantation } from '../entities/plantation.entity';
 
 export interface IListAllPlantationsRequestUseCase {

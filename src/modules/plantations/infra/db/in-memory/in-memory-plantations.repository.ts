@@ -5,13 +5,13 @@ import {
   IListResponseRepository,
   WhereParams,
 } from '@/core/repositories';
-import { IPlantationsRepository } from '../../repositories/plantation-repository.interface';
-import { IPlantation } from '../../entities/plantation.entity';
-import { PrismaPlantationMapper } from '../../infra/db/prisma/mapper/prisma-plantation-mapper';
+import { IPlantation } from '../../../entities/plantation.entity';
+import { PrismaPlantationsMapper } from '../prisma/mapper/prisma-plantations.mapper';
+import { IPlantationsRepository } from '../plantations-repository';
 
-export class InMemoryPlantationRepository implements IPlantationsRepository {
+export class InMemoryPlantationsRepository implements IPlantationsRepository {
   public plantations: IPlantation[] = [];
-  mapper = new PrismaPlantationMapper();
+  mapper = new PrismaPlantationsMapper();
 
   async create(
     data: Omit<IPlantation, 'id' | 'createdAt' | 'updatedAt'>,

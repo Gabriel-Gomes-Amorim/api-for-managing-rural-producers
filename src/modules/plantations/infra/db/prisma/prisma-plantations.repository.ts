@@ -7,14 +7,14 @@ import {
 } from 'src/core/repositories';
 import { PrismaService } from 'src/shared/infra/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { IPlantationsRepository } from '@/modules/plantations/repositories/plantation-repository.interface';
-import { PrismaPlantationMapper } from './mapper/prisma-plantation-mapper';
 import { IPlantation } from '@/modules/plantations/entities/plantation.entity';
+import { IPlantationsRepository } from '../plantations-repository';
+import { PrismaPlantationsMapper } from './mapper/prisma-plantations.mapper';
 
 @Injectable()
-export class PrismaPlantationRepository implements IPlantationsRepository {
+export class PrismaPlantationsRepository implements IPlantationsRepository {
   constructor(private readonly prisma: PrismaService) {}
-  mapper = new PrismaPlantationMapper();
+  mapper = new PrismaPlantationsMapper();
 
   async create(
     data: Omit<IPlantation, 'id' | 'createdAt' | 'updatedAt'>,

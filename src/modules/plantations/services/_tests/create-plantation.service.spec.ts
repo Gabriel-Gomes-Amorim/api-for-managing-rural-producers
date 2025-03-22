@@ -1,6 +1,5 @@
-import { InMemoryPlantationRepository } from '../repositories/in-memory-plantation-repository';
 import { IProducer } from '@/modules/producers/entities/producer.entity';
-import { CreatePlantationService } from '../../services/create-plantation.service';
+import { CreatePlantationService } from '../create-plantation.service';
 import { IPlantation } from '../../entities/plantation.entity';
 import { InMemoryHarvestRepository } from '@/modules/harvests/tests/repositories/in-memory-harvest-repository';
 import { IHarvest } from '@/modules/harvests/entities/harvest.entity';
@@ -8,15 +7,16 @@ import { InMemoryFarmRepository } from '@/modules/farms/tests/repositories/in-me
 import { IFarm } from '@/modules/farms/entities/farm.entity';
 import { CreatePlantationDTO } from '../../dtos/create-plantation.dto';
 import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
+import { InMemoryPlantationsRepository } from '../../infra/db/in-memory/in-memory-plantations.repository';
 
-let inMemoryPlantationRepository: InMemoryPlantationRepository;
+let inMemoryPlantationRepository: InMemoryPlantationsRepository;
 let inMemoryHarvestRepository: InMemoryHarvestRepository;
 let inMemoryFarmRepository: InMemoryFarmRepository;
 let inMemoryProducerRepository: InMemoryProducersRepository;
 let sut: CreatePlantationService;
 describe('CreatePlantationService', (): void => {
   beforeEach(async (): Promise<void> => {
-    inMemoryPlantationRepository = new InMemoryPlantationRepository();
+    inMemoryPlantationRepository = new InMemoryPlantationsRepository();
     inMemoryHarvestRepository = new InMemoryHarvestRepository();
     inMemoryFarmRepository = new InMemoryFarmRepository();
     inMemoryProducerRepository = new InMemoryProducersRepository();

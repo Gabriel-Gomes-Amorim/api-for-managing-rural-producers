@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { AppError } from '@/shared/errors/app-error';
-import { IPlantationsRepository } from '../repositories/plantation-repository.interface';
 import { CreatePlantationDTO } from '../dtos/create-plantation.dto';
 import { IPlantation } from '../entities/plantation.entity';
+import { IPlantationsRepository } from '../infra/db/plantations-repository';
 
 @Injectable()
 export class CreatePlantationService {

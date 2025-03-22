@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { AppError } from '@/shared/errors/app-error';
-import { IPlantationsRepository } from '../repositories/plantation-repository.interface';
+import { IPlantationsRepository } from '../infra/db/plantations-repository';
 import { IPlantation } from '../entities/plantation.entity';
 
 @Injectable()

@@ -1,28 +1,28 @@
-import { InMemoryPlantationRepository } from '../repositories/in-memory-plantation-repository';
 import { IProducer } from '@/modules/producers/entities/producer.entity';
-import { DeletePlantationService } from '../../services/delete-plantation.service';
 import { InMemoryHarvestRepository } from '@/modules/harvests/tests/repositories/in-memory-harvest-repository';
 import { InMemoryFarmRepository } from '@/modules/farms/tests/repositories/in-memory-farm-repository';
+import { FindPlantationService } from '../find-plantation.service';
 import { IFarm } from '@/modules/farms/entities/farm.entity';
 import { IHarvest } from '@/modules/harvests/entities/harvest.entity';
 import { IPlantation } from '../../entities/plantation.entity';
 import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
+import { InMemoryPlantationsRepository } from '../../infra/db/in-memory/in-memory-plantations.repository';
 
-let inMemoryPlantationRepository: InMemoryPlantationRepository;
+let inMemoryPlantationRepository: InMemoryPlantationsRepository;
 let inMemoryHarvestRepository: InMemoryHarvestRepository;
 let inMemoryFarmRepository: InMemoryFarmRepository;
 let inMemoryProducerRepository: InMemoryProducersRepository;
-let sut: DeletePlantationService;
-describe('DeletePlantationService', (): void => {
+let sut: FindPlantationService;
+describe('FindPlantationService', (): void => {
   beforeEach(async (): Promise<void> => {
-    inMemoryPlantationRepository = new InMemoryPlantationRepository();
+    inMemoryPlantationRepository = new InMemoryPlantationsRepository();
     inMemoryHarvestRepository = new InMemoryHarvestRepository();
     inMemoryFarmRepository = new InMemoryFarmRepository();
     inMemoryProducerRepository = new InMemoryProducersRepository();
-    sut = new DeletePlantationService(inMemoryPlantationRepository);
+    sut = new FindPlantationService(inMemoryPlantationRepository);
   });
 
-  it('should successfully delete plantation', async (): Promise<void> => {
+  it('should return plantation successfully', async (): Promise<void> => {
     const producer: IProducer = await inMemoryProducerRepository.create({
       name: 'User Teste',
       cpfCnpj: '12345678900',
@@ -48,8 +48,17 @@ describe('DeletePlantationService', (): void => {
       harvestId: harvest.id,
     });
 
-    await sut.execute(plantation.id);
+    const result: IPlantation = await sut.execute(plantation.id);
 
-    expect(inMemoryPlantationRepository.plantations).toHaveLength(0);
+    expect(result).toMatchObject({
+      name: plantation.name,
+      harvestId: plantation.harvestId,
+    });
+  });
+
+  it('should throw an error if the plantation does not exist', async (): Promise<void> => {
+    await expect(
+      sut.execute('non-existent-plantation-id'),
+    ).rejects.toHaveProperty('message', 'Plantation not found');
   });
 });

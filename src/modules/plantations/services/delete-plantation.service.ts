@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IPlantationsRepository } from '../repositories/plantation-repository.interface';
+import { IPlantationsRepository } from '../infra/db/plantations-repository';
 
 @Injectable()
 export class DeletePlantationService {
