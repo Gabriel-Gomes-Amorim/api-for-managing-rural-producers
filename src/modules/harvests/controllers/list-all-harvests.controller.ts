@@ -15,7 +15,7 @@ export class ListHarvestsController {
   ) {}
 
   @Get()
-  @ApiQuery({ name: 'name', required: false, description: 'Harvest name' })
+  @ApiQuery({ name: 'year', required: false, description: 'Harvest year' })
   @ApiQuery({
     name: 'take',
     required: false,
