@@ -1,20 +1,20 @@
-import { InMemoryProducerRepository } from '@/modules/producers/tests/repositories/in-memory-producer-repository';
 import { IProducer } from '@/modules/producers/entities/producer.entity';
 import { InMemoryHarvestRepository } from '@/modules/harvests/tests/repositories/in-memory-harvest-repository';
 import { InMemoryFarmRepository } from '@/modules/farms/tests/repositories/in-memory-farm-repository';
 import { IFarm } from '@/modules/farms/entities/farm.entity';
 import { IHarvest } from '@/modules/harvests/entities/harvest.entity';
 import { DeleteHarvestService } from '../../services/delete-harvest.service';
+import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
 
 let inMemoryHarvestRepository: InMemoryHarvestRepository;
 let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducerRepository;
+let inMemoryProducerRepository: InMemoryProducersRepository;
 let sut: DeleteHarvestService;
 describe('DeleteHarvestService', (): void => {
   beforeEach(async (): Promise<void> => {
     inMemoryHarvestRepository = new InMemoryHarvestRepository();
     inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducerRepository();
+    inMemoryProducerRepository = new InMemoryProducersRepository();
     sut = new DeleteHarvestService(inMemoryHarvestRepository);
   });
 

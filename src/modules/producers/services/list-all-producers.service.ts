@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IProducersRepository } from '../repositories/producer-repository.interface';
+import { IProducersRepository } from '../infra/db/producers-repository';
 import { IProducer } from '../entities/producer.entity';
 import { IListResponseRepository } from 'src/core/repositories';
 

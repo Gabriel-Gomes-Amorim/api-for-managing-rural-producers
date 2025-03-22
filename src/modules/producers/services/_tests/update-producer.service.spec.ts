@@ -1,13 +1,12 @@
-import { UpdateProducerService } from '../../services/update-producer.service';
-import { InMemoryProducerRepository } from '../repositories/in-memory-producer-repository';
-import { AppError } from '@/shared/errors/app-error';
+import { UpdateProducerService } from '../update-producer.service';
+import { InMemoryProducersRepository } from '../../infra/db/in-memory/in-memory-producers.repository';
 
-let inMemoryProducerRepository: InMemoryProducerRepository;
+let inMemoryProducerRepository: InMemoryProducersRepository;
 let sut: UpdateProducerService;
 
 describe('UpdateProducerService', () => {
   beforeEach(() => {
-    inMemoryProducerRepository = new InMemoryProducerRepository();
+    inMemoryProducerRepository = new InMemoryProducersRepository();
     sut = new UpdateProducerService(inMemoryProducerRepository);
   });
 

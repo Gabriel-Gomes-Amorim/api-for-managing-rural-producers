@@ -1,17 +1,17 @@
 import { randomUUID } from 'crypto';
-import { IProducer } from '../../entities/producer.entity';
-import { IProducersRepository } from '../../repositories/producer-repository.interface';
-import { PrismaProducerMapper } from '../../infra/db/prisma/mapper/prisma-producer-mapper';
 import {
   IFindRequestRepository,
   IListRequestRepository,
   IListResponseRepository,
   WhereParams,
 } from '@/core/repositories';
+import { IProducer } from '@/modules/producers/entities/producer.entity';
+import { IProducersRepository } from '../producers-repository';
+import { PrismaProducersMapper } from '../prisma/mapper/prisma-producers.mapper';
 
-export class InMemoryProducerRepository implements IProducersRepository {
+export class InMemoryProducersRepository implements IProducersRepository {
   public producers: IProducer[] = [];
-  mapper = new PrismaProducerMapper();
+  mapper = new PrismaProducersMapper();
 
   async create(
     data: Omit<IProducer, 'id' | 'createdAt' | 'updatedAt'>,

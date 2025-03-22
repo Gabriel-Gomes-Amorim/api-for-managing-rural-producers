@@ -4,7 +4,7 @@ import {
   IListResponseRepository,
   WhereParams,
 } from 'src/core/repositories';
-import { IProducer } from '../entities/producer.entity';
+import { IProducer } from '../../entities/producer.entity';
 
 export interface IProducersRepository {
   create(

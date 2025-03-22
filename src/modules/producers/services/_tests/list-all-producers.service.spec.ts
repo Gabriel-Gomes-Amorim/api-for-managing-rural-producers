@@ -1,14 +1,14 @@
-import { ListAllProducersService } from '../../services/list-all-producers.service';
-import { InMemoryProducerRepository } from '../repositories/in-memory-producer-repository';
+import { ListAllProducersService } from '../list-all-producers.service';
 import { IProducer } from '../../entities/producer.entity';
 import { IListResponseRepository } from '@/core/repositories';
+import { InMemoryProducersRepository } from '../../infra/db/in-memory/in-memory-producers.repository';
 
-let inMemoryProducerRepository: InMemoryProducerRepository;
+let inMemoryProducerRepository: InMemoryProducersRepository;
 let sut: ListAllProducersService;
 
 describe('ListAllProducersService', (): void => {
   beforeEach((): void => {
-    inMemoryProducerRepository = new InMemoryProducerRepository();
+    inMemoryProducerRepository = new InMemoryProducersRepository();
     sut = new ListAllProducersService(inMemoryProducerRepository);
   });
 

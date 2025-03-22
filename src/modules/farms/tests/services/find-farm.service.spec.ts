@@ -2,15 +2,15 @@ import { IProducer } from '@/modules/producers/entities/producer.entity';
 import { IFarm } from '../../entities/farm.entity';
 import { FindFarmService } from '../../services/find-farm.service';
 import { InMemoryFarmRepository } from '../repositories/in-memory-farm-repository';
-import { InMemoryProducerRepository } from '@/modules/producers/tests/repositories/in-memory-producer-repository';
+import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
 
 let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducerRepository;
+let inMemoryProducerRepository: InMemoryProducersRepository;
 let sut: FindFarmService;
 describe('FindFarmService', (): void => {
   beforeEach(async (): Promise<void> => {
     inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducerRepository();
+    inMemoryProducerRepository = new InMemoryProducersRepository();
     sut = new FindFarmService(inMemoryFarmRepository);
   });
 

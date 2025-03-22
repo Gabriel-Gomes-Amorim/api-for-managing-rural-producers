@@ -7,10 +7,10 @@ import { CreateProducerService } from './services/create-producer.service';
 import { DeleteProducerService } from './services/delete-producer.service';
 import { FindProducerService } from './services/find-producer.service';
 import { UpdateProducerService } from './services/update-producer.service';
-import { PrismaProducerRepository } from './infra/db/prisma/prisma-producer.repository';
 import { PrismaModule } from 'src/shared/infra/prisma/prisma.module';
 import { ListAllProducersService } from './services/list-all-producers.service';
 import { ListProducersController } from './controllers/list-all-producers.controller';
+import { PrismaProducersRepository } from './infra/db/prisma/prisma-producers.repository';
 
 @Module({
   imports: [PrismaModule],
@@ -27,10 +27,10 @@ import { ListProducersController } from './controllers/list-all-producers.contro
     FindProducerService,
     ListAllProducersService,
     UpdateProducerService,
-    PrismaProducerRepository,
+    PrismaProducersRepository,
     {
       provide: 'IProducersRepository',
-      useClass: PrismaProducerRepository,
+      useClass: PrismaProducersRepository,
     },
   ],
 })

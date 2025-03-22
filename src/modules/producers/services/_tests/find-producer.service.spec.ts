@@ -1,12 +1,12 @@
 import { IProducer } from '../../entities/producer.entity';
-import { FindProducerService } from '../../services/find-producer.service';
-import { InMemoryProducerRepository } from '../repositories/in-memory-producer-repository';
+import { FindProducerService } from '../find-producer.service';
+import { InMemoryProducersRepository } from '../../infra/db/in-memory/in-memory-producers.repository';
 
-let inMemoryProducerRepository: InMemoryProducerRepository;
+let inMemoryProducerRepository: InMemoryProducersRepository;
 let sut: FindProducerService;
 describe('FindProducerService', (): void => {
   beforeEach(async (): Promise<void> => {
-    inMemoryProducerRepository = new InMemoryProducerRepository();
+    inMemoryProducerRepository = new InMemoryProducersRepository();
     sut = new FindProducerService(inMemoryProducerRepository);
   });
 

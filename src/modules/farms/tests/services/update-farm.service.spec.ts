@@ -1,17 +1,17 @@
 import { IProducer } from '@/modules/producers/entities/producer.entity';
 import { UpdateFarmService } from '../../services/update-farm.service';
 import { InMemoryFarmRepository } from '../repositories/in-memory-farm-repository';
-import { InMemoryProducerRepository } from '@/modules/producers/tests/repositories/in-memory-producer-repository';
 import { IFarm } from '../../entities/farm.entity';
+import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
 
 let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducerRepository;
+let inMemoryProducerRepository: InMemoryProducersRepository;
 let sut: UpdateFarmService;
 
 describe('UpdateFarmService', (): void => {
   beforeEach((): void => {
     inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducerRepository();
+    inMemoryProducerRepository = new InMemoryProducersRepository();
     sut = new UpdateFarmService(inMemoryFarmRepository);
   });
 

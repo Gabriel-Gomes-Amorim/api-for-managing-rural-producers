@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IProducersRepository } from '../repositories/producer-repository.interface';
 import { IProducer } from '../entities/producer.entity';
 import { CreateProducerDTO } from '../dtos/create-producer.dto';
 import { AppError } from '@/shared/errors/app-error';
+import { IProducersRepository } from '../infra/db/producers-repository';
 
 @Injectable()
 export class CreateProducerService {

@@ -1,4 +1,3 @@
-import { InMemoryProducerRepository } from '@/modules/producers/tests/repositories/in-memory-producer-repository';
 import { InMemoryPlantationRepository } from '../repositories/in-memory-plantation-repository';
 import { IProducer } from '@/modules/producers/entities/producer.entity';
 import { DeletePlantationService } from '../../services/delete-plantation.service';
@@ -7,18 +6,19 @@ import { InMemoryFarmRepository } from '@/modules/farms/tests/repositories/in-me
 import { IFarm } from '@/modules/farms/entities/farm.entity';
 import { IHarvest } from '@/modules/harvests/entities/harvest.entity';
 import { IPlantation } from '../../entities/plantation.entity';
+import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
 
 let inMemoryPlantationRepository: InMemoryPlantationRepository;
 let inMemoryHarvestRepository: InMemoryHarvestRepository;
 let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducerRepository;
+let inMemoryProducerRepository: InMemoryProducersRepository;
 let sut: DeletePlantationService;
 describe('DeletePlantationService', (): void => {
   beforeEach(async (): Promise<void> => {
     inMemoryPlantationRepository = new InMemoryPlantationRepository();
     inMemoryHarvestRepository = new InMemoryHarvestRepository();
     inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducerRepository();
+    inMemoryProducerRepository = new InMemoryProducersRepository();
     sut = new DeletePlantationService(inMemoryPlantationRepository);
   });
 

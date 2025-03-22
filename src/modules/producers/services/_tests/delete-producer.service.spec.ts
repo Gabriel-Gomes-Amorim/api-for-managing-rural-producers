@@ -1,12 +1,12 @@
 import { IProducer } from '../../entities/producer.entity';
-import { DeleteProducerService } from '../../services/delete-producer.service';
-import { InMemoryProducerRepository } from '../repositories/in-memory-producer-repository';
+import { DeleteProducerService } from '../delete-producer.service';
+import { InMemoryProducersRepository } from '../../infra/db/in-memory/in-memory-producers.repository';
 
-let inMemoryProducerRepository: InMemoryProducerRepository;
+let inMemoryProducerRepository: InMemoryProducersRepository;
 let sut: DeleteProducerService;
 describe('DeleteProducerService', (): void => {
   beforeEach(async (): Promise<void> => {
-    inMemoryProducerRepository = new InMemoryProducerRepository();
+    inMemoryProducerRepository = new InMemoryProducersRepository();
     sut = new DeleteProducerService(inMemoryProducerRepository);
   });
 

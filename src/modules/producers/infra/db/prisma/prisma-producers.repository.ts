@@ -6,15 +6,15 @@ import {
   WhereParams,
 } from 'src/core/repositories';
 import { PrismaService } from 'src/shared/infra/prisma/prisma.service';
-import { PrismaProducerMapper } from './mapper/prisma-producer-mapper';
 import { IProducer } from 'src/modules/producers/entities/producer.entity';
-import { IProducersRepository } from 'src/modules/producers/repositories/producer-repository.interface';
 import { Injectable } from '@nestjs/common';
+import { IProducersRepository } from '../producers-repository';
+import { PrismaProducersMapper } from './mapper/prisma-producers.mapper';
 
 @Injectable()
-export class PrismaProducerRepository implements IProducersRepository {
+export class PrismaProducersRepository implements IProducersRepository {
   constructor(private readonly prisma: PrismaService) {}
-  mapper = new PrismaProducerMapper();
+  mapper = new PrismaProducersMapper();
 
   async create(
     data: Omit<IProducer, 'id' | 'createdAt' | 'updatedAt'>,

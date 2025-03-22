@@ -1,5 +1,4 @@
 import { IProducer } from '@/modules/producers/entities/producer.entity';
-import { InMemoryProducerRepository } from '@/modules/producers/tests/repositories/in-memory-producer-repository';
 import { InMemoryPlantationRepository } from '../repositories/in-memory-plantation-repository';
 import { InMemoryHarvestRepository } from '@/modules/harvests/tests/repositories/in-memory-harvest-repository';
 import { UpdatePlantationService } from '../../services/update-plantantion.service';
@@ -7,11 +6,12 @@ import { IHarvest } from '@/modules/harvests/entities/harvest.entity';
 import { InMemoryFarmRepository } from '@/modules/farms/tests/repositories/in-memory-farm-repository';
 import { IFarm } from '@/modules/farms/entities/farm.entity';
 import { IPlantation } from '../../entities/plantation.entity';
+import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
 
 let inMemoryPlantationRepository: InMemoryPlantationRepository;
 let inMemoryHarvestRepository: InMemoryHarvestRepository;
 let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducerRepository;
+let inMemoryProducerRepository: InMemoryProducersRepository;
 let sut: UpdatePlantationService;
 
 describe('UpdatePlantationService', (): void => {
@@ -20,7 +20,7 @@ describe('UpdatePlantationService', (): void => {
     inMemoryHarvestRepository = new InMemoryHarvestRepository();
     inMemoryPlantationRepository = new InMemoryPlantationRepository();
     inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducerRepository();
+    inMemoryProducerRepository = new InMemoryProducersRepository();
     sut = new UpdatePlantationService(inMemoryPlantationRepository);
   });
 

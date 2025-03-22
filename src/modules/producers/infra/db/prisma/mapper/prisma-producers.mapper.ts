@@ -3,7 +3,7 @@ import { Prisma } from '@prisma/client';
 import { IResolveWhereToList, TField } from 'src/core/repositories';
 import { IProducer } from 'src/modules/producers/entities/producer.entity';
 
-export class PrismaProducerMapper {
+export class PrismaProducersMapper {
   resolveWhereToList({
     fields,
     operator = 'AND',

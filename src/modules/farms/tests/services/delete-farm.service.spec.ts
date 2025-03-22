@@ -1,16 +1,16 @@
-import { InMemoryProducerRepository } from '@/modules/producers/tests/repositories/in-memory-producer-repository';
+import { InMemoryProducersRepository } from '@/modules/producers/infra/db/in-memory/in-memory-producers.repository';
 import { IFarm } from '../../entities/farm.entity';
 import { DeleteFarmService } from '../../services/delete-farm.service';
 import { InMemoryFarmRepository } from '../repositories/in-memory-farm-repository';
 import { IProducer } from '@/modules/producers/entities/producer.entity';
 
 let inMemoryFarmRepository: InMemoryFarmRepository;
-let inMemoryProducerRepository: InMemoryProducerRepository;
+let inMemoryProducerRepository: InMemoryProducersRepository;
 let sut: DeleteFarmService;
 describe('DeleteFarmService', (): void => {
   beforeEach(async (): Promise<void> => {
     inMemoryFarmRepository = new InMemoryFarmRepository();
-    inMemoryProducerRepository = new InMemoryProducerRepository();
+    inMemoryProducerRepository = new InMemoryProducersRepository();
     sut = new DeleteFarmService(inMemoryFarmRepository);
   });
 
