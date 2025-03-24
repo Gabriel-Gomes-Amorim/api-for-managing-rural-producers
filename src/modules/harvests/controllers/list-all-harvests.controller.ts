@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, HttpStatus, Query } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Query, Res } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import {
   IListAllHarvestsRequestUseCase,
@@ -6,6 +6,7 @@ import {
 } from '../services/list-all-harvests.service';
 import { IHarvest } from '../entities/harvest.entity';
 import { IListResponseRepository } from '@/core/repositories';
+import { Response } from 'express';
 
 @Controller('harvests')
 @ApiTags('harvests')
@@ -33,8 +34,10 @@ export class ListHarvestsController {
     type: Number,
     description: 'Number of harvests to skip',
   })
-  @HttpCode(HttpStatus.OK)
-  async list(@Query() query: IListAllHarvestsRequestUseCase) {
+  async list(
+    @Query() query: IListAllHarvestsRequestUseCase,
+    @Res() res: Response,
+  ): Promise<Response> {
     const { year, take, skip } = query;
 
     const harvests: IListResponseRepository<IHarvest> =
@@ -44,10 +47,9 @@ export class ListHarvestsController {
         skip: skip ? Number(skip) : undefined,
       });
 
-    return {
+    return res.status(HttpStatus.OK).json({
       status: true,
-      statusCode: HttpStatus.OK,
       data: harvests,
-    };
+    });
   }
 }

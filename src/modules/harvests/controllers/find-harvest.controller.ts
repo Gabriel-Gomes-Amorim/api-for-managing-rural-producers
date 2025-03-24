@@ -1,7 +1,8 @@
-import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { FindHarvestService } from '../services/find-harvest.service';
 import { IHarvest } from '../entities/harvest.entity';
+import { Response } from 'express';
 
 @Controller('harvests')
 @ApiTags('harvests')
@@ -9,14 +10,12 @@ export class FindHarvestController {
   constructor(private readonly findHarvestService: FindHarvestService) {}
 
   @Get(':id')
-  @HttpCode(HttpStatus.OK)
-  async find(@Param('id') id: string) {
+  async find(@Param('id') id: string, @Res() res: Response): Promise<Response> {
     const harvest: IHarvest = await this.findHarvestService.execute(id);
 
-    return {
+    return res.status(HttpStatus.OK).json({
       status: true,
-      statusCode: HttpStatus.OK,
       data: harvest,
-    };
+    });
   }
 }

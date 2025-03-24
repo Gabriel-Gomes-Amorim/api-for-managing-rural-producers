@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Query,
-  Res,
-} from '@nestjs/common';
+import { Controller, Get, HttpStatus, Query, Res } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import {
   IListAllPlantationsRequestUseCase,
@@ -36,7 +29,6 @@ export class ListPlantationsController {
     type: Number,
     description: 'Number of plantations to skip',
   })
-  @HttpCode(HttpStatus.OK)
   async list(
     @Query() query: IListAllPlantationsRequestUseCase,
     @Res() res: Response,
