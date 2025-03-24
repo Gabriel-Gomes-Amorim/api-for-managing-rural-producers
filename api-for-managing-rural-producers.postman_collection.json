@@ -1,0 +1,544 @@
+{
+	"info": {
+		"_postman_id": "6b8a23b7-6a83-43fa-8bcb-2cf3c6c9ce88",
+		"name": "api-for-managing-rural-producers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24703660"
+	},
+	"item": [
+		{
+			"name": "producers",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"cpfCnpj\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/producers",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"producers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/producers/b9db25ed-bb56-446f-9d7f-023ece43a2df",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"producers",
+								"b9db25ed-bb56-446f-9d7f-023ece43a2df"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/producers/b9db25ed-bb56-446f-9d7f-023ece43a2df",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"producers",
+								"b9db25ed-bb56-446f-9d7f-023ece43a2df"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/producers",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"producers"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "skip",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "take",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/producers/bd67fedf-470a-4488-aad7-ef0729e193d4",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"producers",
+								"bd67fedf-470a-4488-aad7-ef0729e193d4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "farms",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Farm A\",\n  \"city\": \"City A\",\n  \"state\": \"State A\",\n  \"totalArea\": 1000,\n  \"farmableArea\": 800,\n  \"vegetationArea\": 200,\n  \"producerId\": \"b9db25ed-bb56-446f-9d7f-023ece43a2df\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/farms",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"farms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Farm 01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/farms/45e0373a-8e16-41a7-b9d0-fc8023737cf2",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"farms",
+								"45e0373a-8e16-41a7-b9d0-fc8023737cf2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/farms/45e0373a-8e16-41a7-b9d0-fc8023737cf2",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"farms",
+								"45e0373a-8e16-41a7-b9d0-fc8023737cf2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/farms",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"farms"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Farm 01",
+									"disabled": true
+								},
+								{
+									"key": "skip",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "take",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/farms/a182b6dc-8df4-4d4d-87dc-786195963dd0",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"farms",
+								"a182b6dc-8df4-4d4d-87dc-786195963dd0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "plantations",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Coffee\",\n    \"harvestId\": \"fd64a646-aa11-4590-84a8-b973840b8a4a\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/plantations",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"plantations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Soy\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/plantations/aa41ed58-6192-4915-af7a-68d6bb25c1bc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"plantations",
+								"aa41ed58-6192-4915-af7a-68d6bb25c1bc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/plantations/be3f1ac3-f96d-4ce9-b3ab-9c451f25931d",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"plantations",
+								"be3f1ac3-f96d-4ce9-b3ab-9c451f25931d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/plantations",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"plantations"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "take",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/plantations/be3f1ac3-f96d-4ce9-b3ab-9c451f25931d",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"plantations",
+								"be3f1ac3-f96d-4ce9-b3ab-9c451f25931d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "harvests",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"year\": 2025,\n    \"farmId\": \"45e0373a-8e16-41a7-b9d0-fc8023737cf2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/harvests",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"harvests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Gabriel\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/harvests/02f58677-e75a-4ab5-8647-014b0ac90821",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"harvests",
+								"02f58677-e75a-4ab5-8647-014b0ac90821"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/harvests/02f58677-e75a-4ab5-8647-014b0ac90821",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"harvests",
+								"02f58677-e75a-4ab5-8647-014b0ac90821"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/harvests",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"harvests"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "take",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/harvests/be3f1ac3-f96d-4ce9-b3ab-9c451f25931d",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"harvests",
+								"be3f1ac3-f96d-4ce9-b3ab-9c451f25931d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dashboard",
+			"item": [
+				{
+					"name": "load",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/dashboard",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"dashboard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

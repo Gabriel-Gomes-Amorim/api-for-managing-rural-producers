@@ -30,15 +30,6 @@ A API permite gerenciar produtores rurais e suas propriedades, garantindo a inte
 - Um produtor pode ter **múltiplas fazendas**
 - Uma fazenda pode ter **várias culturas plantadas por safra**
 
-<!-- ✅ **Dashboard:**
-
-- Total de fazendas cadastradas
-- Total de hectares registrados
-- Gráficos de pizza:
-  - **Distribuição de fazendas por estado**
-  - **Distribuição de culturas plantadas**
-  - **Uso do solo (área agricultável x vegetação)** -->
-
 ## 🛠️ Como rodar o projeto
 
 ```bash
@@ -69,3 +60,7 @@ http://localhost:${porta-da-api-configurada}/api
 Ao acessar essa URL, você poderá explorar todos os endpoints da API, visualizar exemplos de requisições e respostas, e até realizar testes diretamente pela interface do Swagger.
 
 Certifique-se de substituir `${porta-da-api-configurada}` pela porta que você configurou no seu projeto.
+
+## 📬 Arquivo do Postman
+
+Para facilitar os testes, há um arquivo de coleção do Postman na raiz do projeto, contendo todos os endpoints da API já configurados. Você pode importar esse arquivo no Postman para testar rapidamente as requisições.
